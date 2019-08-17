@@ -3,17 +3,17 @@ let iterations = 0;
 nums.sort((a, b) => a-b);
 console.log('sorted array: ', nums);
 
-function binarySearch(arr, element, start, end) {
+function recursiveBinarySearch(arr, element, start, end) {
     iterations += 1;
-    if (start === undefined || end === undefined || start > end || start > arr.length) return false;
-    let mid = Math.floor((end + start) / 2);
-    if (arr[mid] === element) {
-        return mid;
+    if (start > end || start > arr.length) return false;
+    const midIndex = Math.floor((end + start) / 2);
+    if (arr[midIndex] === element) {
+        return midIndex;
     }
-    else if (element < arr[mid]) {
-        return binarySearch(arr, element, start, mid - 1);
+    else if (element < arr[midIndex]) {
+        return binarySearch(arr, element, start, midIndex - 1);
     }
-    return binarySearch(arr, element, mid + 1,end);
+    return binarySearch(arr, element, midIndex + 1,end);
 }
 
 function iterativeBinarySearch(arr, element) {
@@ -21,15 +21,15 @@ function iterativeBinarySearch(arr, element) {
     let end = arr.length;
     while (start < end) {
         iterations += 1;
-        let mid = Math.floor((start + end) / 2);
-        if (arr[mid] === element) {
-            return mid;
+        const midIndex = Math.floor((start + end) / 2);
+        if (arr[midIndex] === element) {
+            return midIndex;
         }
-        else if (element < arr[mid]) {
-            end = mid;
+        else if (element < arr[midIndex]) {
+            end = midIndex;
         }
         else {
-            start = mid + 1;
+            start = midIndex + 1;
         }
     }
     return false;
@@ -37,4 +37,4 @@ function iterativeBinarySearch(arr, element) {
 
 // console.log('index of element: ', binarySearch(nums, 6, 0, nums.length - 1));
 console.log('index of element: ', iterativeBinarySearch(nums, 6, 0, nums.length - 1));
-console.log('array length: ', nums.length, 'number of iterations: ', iterations);
+console.log('array length: ', nums.length, ', number of iterations: ', iterations);
